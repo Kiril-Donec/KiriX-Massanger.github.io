@@ -1,0 +1,43 @@
+    <!DOCTYPE html>
+    <html lang="en"> 
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Registration Page</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="container">
+            <h2 id="registrationTitle">Registration</h2> 
+            <form id="registrationForm">
+                <div id="emailField" class="form-group">
+                    <label for="email" id="emailLabel">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <span class="error-message" id="emailError"></span>
+                </div>
+                <div id="passwordField" class="form-group" style="display: none;">
+                    <label for="password" id="passwordLabel">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+                <div id="passwordConfirmField" class="form-group" style="display: none;">
+                    <label for="passwordConfirm" id="passwordConfirmLabel">Confirm Password:</label>
+                    <input type="password" id="passwordConfirm" name="passwordConfirm" required>
+                    <span class="error-message" id="passwordConfirmError"></span>
+                </div>
+                <div id="nameField" class="form-group" style="display: none;">
+                    <label for="firstName" id="firstNameLabel">First Name:</label>
+                    <input type="text" id="firstName" name="firstName">
+                    <label for="lastName" id="lastNameLabel">Last Name (optional):</label>
+                    <input type="text" id="lastName" name="lastName">
+                </div>
+                <div id="usernameField" class="form-group" style="display: none;">
+                    <label for="username" id="usernameLabel">Username:</label>
+                    <input type="text" id="username" name="username"> 
+                </div>
+                <button type="submit" id="signupButton">Sign Up</button>
+            </form>
+        </div>
+        <script src="script.js"></script>
+    </body>
+    </html>

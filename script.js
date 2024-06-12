@@ -14,7 +14,8 @@ const translations = {
     passwordError: "Password must be at least 8 characters",
     passwordConfirmError: "Passwords do not match",
     usernameError: "Invalid username. Only letters, numbers, hyphens, and underscores allowed (3-16 characters).",
-    registrationSuccessful: "Registration successful!" 
+    registrationSuccessful: "Registration successful!",
+    useEnglishLetters: "Please use only English letters for your username."
   },
   ru: {
     registrationTitle: "Регистрация",
@@ -29,7 +30,8 @@ const translations = {
     passwordError: "Пароль должен содержать не менее 8 символов",
     passwordConfirmError: "Пароли не совпадают",
     usernameError: "Недопустимое имя пользователя. Разрешены только буквы, цифры, дефисы и подчеркивания (3-16 символов).",
-    registrationSuccessful: "Регистрация прошла успешно!" 
+    registrationSuccessful: "Регистрация прошла успешно!",
+    useEnglishLetters: "Пожалуйста, используйте только английские буквы для имени пользователя."
   },
   uk: {
     registrationTitle: "Реєстрація",
@@ -44,7 +46,8 @@ const translations = {
     passwordError: "Пароль повинен містити не менше 8 символів",
     passwordConfirmError: "Паролі не співпадають",
     usernameError: "Неприпустиме ім'я користувача. Дозволені лише літери, цифри, дефіси та підкреслення (3-16 символів).",
-    registrationSuccessful: "Реєстрація пройшла успішно!" 
+    registrationSuccessful: "Реєстрація пройшла успішно!",
+    useEnglishLetters: "Будь ласка, використовуйте лише англійські літери для імені користувача."
   }
 };
 
@@ -60,7 +63,7 @@ function translatePage() {
   });
 }
 
-translatePage(); 
+translatePage();
 
 // Form Elements
 const emailField = document.getElementById('emailField');
@@ -93,7 +96,7 @@ function validateEmail() {
     emailError.style.display = 'none';
     emailField.classList.add('valid');
     showField(passwordField);
-    return true; 
+    return true;
   } else {
     emailError.textContent = translations[lang.startsWith('ru') ? 'ru' : lang.startsWith('uk') ? 'uk' : 'en'].emailError;
     emailError.style.display = 'block';
@@ -102,18 +105,18 @@ function validateEmail() {
     hideField(passwordConfirmField);
     hideField(nameField);
     hideField(usernameField);
-    return false; 
+    return false;
   }
 }
 
 function validatePassword() {
   const password = passwordInput.value;
-  if (password.length >= 8) { 
+  if (password.length >= 8) {
     passwordError.textContent = '';
     passwordError.style.display = 'none';
     passwordField.classList.add('valid');
     showField(passwordConfirmField);
-    return true; 
+    return true;
   } else {
     passwordError.textContent = translations[lang.startsWith('ru') ? 'ru' : lang.startsWith('uk') ? 'uk' : 'en'].passwordError;
     passwordError.style.display = 'block';
@@ -121,7 +124,7 @@ function validatePassword() {
     hideField(passwordConfirmField);
     hideField(nameField);
     hideField(usernameField);
-    return false; 
+    return false;
   }
 }
 
@@ -134,14 +137,14 @@ function validatePasswordConfirmation() {
     passwordConfirmError.style.display = 'none';
     passwordConfirmField.classList.add('valid');
     showField(nameField);
-    return true; 
+    return true;
   } else {
     passwordConfirmError.textContent = translations[lang.startsWith('ru') ? 'ru' : lang.startsWith('uk') ? 'uk' : 'en'].passwordConfirmError;
     passwordConfirmError.style.display = 'block';
     passwordConfirmField.classList.remove('valid');
     hideField(nameField);
     hideField(usernameField);
-    return false; 
+    return false;
   }
 }
 
@@ -171,33 +174,22 @@ function generateUsername(firstName, lastName) {
 }
 
 function showUsernameField() {
-  const firstName = firstNameInput.value;
-  const lastName = lastNameInput.value;
-  
-  // Only generate username if the field is empty
-  if (usernameInput.value === '') {
-    const username = generateUsername(firstName, lastName);
-    usernameInput.value = username; 
-  }
-
   showField(usernameField);
-  validateUsername(); 
+  validateUsername();
 }
 
 // Validate Username
 function validateUsername() {
   const username = usernameInput.value;
-  // Check for Cyrillic characters
-  const cyrillicRegex = /[\u0400-\u04FF]/; 
+  const cyrillicRegex = /[\u0400-\u04FF]/;
 
   if (cyrillicRegex.test(username)) {
-    usernameError.textContent = "Please use only English letters for your username.";
+    usernameError.textContent = translations[lang.startsWith('ru') ? 'ru' : lang.startsWith('uk') ? 'uk' : 'en'].useEnglishLetters;
     usernameError.style.display = 'block';
     usernameField.classList.remove('valid');
     return false;
   } else {
-    // If no Cyrillic, proceed with regular validation
-    const isValid = /^[a-z0-9_-]{3,16}$/.test(username); 
+    const isValid = /^[a-z0-9_-]{3,16}$/.test(username);
     if (isValid) {
       usernameError.textContent = '';
       usernameError.style.display = 'none';
@@ -207,7 +199,7 @@ function validateUsername() {
       usernameError.textContent = translations[lang.startsWith('ru') ? 'ru' : lang.startsWith('uk') ? 'uk' : 'en'].usernameError;
       usernameError.style.display = 'block';
       usernameField.classList.remove('valid');
-      return false; 
+      return false;
     }
   }
 }
@@ -216,35 +208,40 @@ function validateUsername() {
 emailInput.addEventListener('input', validateEmail);
 passwordInput.addEventListener('input', validatePassword);
 passwordConfirmInput.addEventListener('input', validatePasswordConfirmation);
-firstNameInput.addEventListener('input', function() {
+
+firstNameInput.addEventListener('input', function () {
   if (this.value.trim() !== '') {
+    usernameInput.value = generateUsername(firstNameInput.value, lastNameInput.value);
     showUsernameField();
   } else {
     hideField(usernameField);
   }
 });
 
-lastNameInput.addEventListener('input', showUsernameField);
-usernameInput.addEventListener('input', validateUsername); 
+lastNameInput.addEventListener('input', function () {
+  usernameInput.value = generateUsername(firstNameInput.value, lastNameInput.value);
+  showUsernameField();
+});
 
+usernameInput.addEventListener('input', validateUsername);
 
-document.getElementById('registrationForm').addEventListener('submit', function(event) {
+document.getElementById('registrationForm').addEventListener('submit', function (event) {
   event.preventDefault();
 
   if (validateEmail() && validatePassword() && validatePasswordConfirmation() && validateUsername()) {
     alert(translations[lang.startsWith('ru') ? 'ru' : lang.startsWith('uk') ? 'uk' : 'en'].registrationSuccessful);
-  } 
+  }
 });
 
 // Show/Hide Fields with Animation
 function showField(field) {
-  field.style.display = 'block'; 
+  field.style.display = 'block';
   setTimeout(() => field.classList.add('active'), 10);
 }
 
 function hideField(field) {
   field.classList.remove('active');
-  setTimeout(() => field.style.display = 'none', 10); 
+  setTimeout(() => field.style.display = 'none', 10);
 }
 
 // Initial State: Show email field

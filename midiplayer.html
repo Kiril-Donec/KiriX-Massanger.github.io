@@ -7,14 +7,15 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #e9f5ff;
+            background-color: #f0f8ff;
             color: #333;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            flex-direction: column;
+            min-height: 100vh;
         }
         .container {
             background-color: #fff;
@@ -22,8 +23,12 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
-            max-width: 600px;
-            margin: auto;
+            max-width: 800px;
+            margin: 20px;
+            transition: transform 0.3s;
+        }
+        .container:hover {
+            transform: scale(1.05);
         }
         h1 {
             margin-top: 0;
@@ -51,21 +56,36 @@
         .features-list {
             text-align: left;
             margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .features-list li {
             margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        .features-list img {
+            margin-right: 10px;
+        }
+        .feature-image {
+            width: 80%;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>MIDI Плеєр</h1>
-        <p>Наш MIDI плеєр дозволяє відтворювати MIDI файли з підтримкою різних функцій.</p>
+        <p>Наш MIDI плеєр дозволяє відтворювати MIDI файли з підтримкою різних функцій, що робить його ідеальним вибором для музикантів та ентузіастів.</p>
+        <img src="path/to/your/image.png" alt="MIDI Player Screenshot" class="feature-image">
         <ul class="features-list">
-            <li>Вибір та відтворення MIDI файлів</li>
-            <li>Підтримка повторного відтворення</li>
-            <li>Відображення логів відтворення</li>
-            <li>Зручний інтерфейс користувача</li>
+            <li><img src="path/to/icon1.png" alt="Feature 1 Icon" width="24" height="24"> Вибір та відтворення MIDI файлів</li>
+            <li><img src="path/to/icon2.png" alt="Feature 2 Icon" width="24" height="24"> Підтримка повторного відтворення</li>
+            <li><img src="path/to/icon3.png" alt="Feature 3 Icon" width="24" height="24"> Відображення логів відтворення</li>
+            <li><img src="path/to/icon4.png" alt="Feature 4 Icon" width="24" height="24"> Зручний інтерфейс користувача</li>
         </ul>
         <a class="download-button" href="path/to/your/midi_player.exe" download>Завантажити</a>
     </div>
